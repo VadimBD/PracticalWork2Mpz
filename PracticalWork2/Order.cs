@@ -14,7 +14,7 @@ namespace PracticalWork2
         public OrderTypes Type { get; set; }
         public List<MenuItem> Items { get; set; }
         public decimal TotalAmount { get; set; }
-        public PaymentMethods PaymentMethod { get; set; } 
+        public PaymentMethods PaymentMethod { get; set; }
 
         public Order(int orderId, DateTime orderDate, OrderStatuses status, OrderTypes type, decimal totalAmount, PaymentMethods paymentMethod)
         {
@@ -26,28 +26,42 @@ namespace PracticalWork2
             TotalAmount = totalAmount;
             PaymentMethod = paymentMethod;
         }
-    }
+        public decimal CalculateTotalPrice()
+        {
+            decimal totalPrice = 0;
+            foreach (var item in Items)
+            {
+                totalPrice += item.Price;
+            }
+            return totalPrice;
+        }
 
-    internal enum OrderTypes
-    {
-        DineIn,
-        Takeout,
-        Delivery
+        public void ViewTotalPrice()
+        {
+            Console.WriteLine($"TotalPrice{CalculateTotalPrice()}");
+        }
+
+        internal enum OrderTypes
+        {
+            DineIn,
+            Takeout,
+            Delivery
+
+        }
+        internal enum OrderStatuses
+        {
+            New,
+            InProgress,
+            Delivered,
+            Completed,
+            Cancelled
+        }
+        internal enum PaymentMethods
+        {
+            cash,
+            card,
+            online
+        }
 
     }
-    internal enum OrderStatuses
-    {
-        New,
-        InProgress,
-        Delivered,
-        Completed,
-        Cancelled
-    }
-    internal enum PaymentMethods 
-    {
-       cash,
-       card,
-       online
-    }
-
 }

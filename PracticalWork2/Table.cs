@@ -18,6 +18,10 @@ namespace PracticalWork2
             Capacity = capacity;
             Status = status;
         }
+        public void DisplayTableInfo()
+        {
+            Console.WriteLine($"Table {TableId}  Seats: {Capacity} Status: {Status}");
+        }
     }
     internal enum TableStatuses
     {
