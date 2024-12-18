@@ -14,6 +14,7 @@ namespace PracticalWork2
         public Positions Position { get; set; }
         public string WorkSchedule { get; set; } // "9:00-18:00"
         public List<Order> AssignedOrders { get; set; } = new List<Order>();
+        public event EventHandler<OrderEventArgs> OrderAssigned;
 
         public Employee(int employeeId, string name, Positions position, string workSchedule)
         {
@@ -30,6 +31,9 @@ namespace PracticalWork2
             {
                 AssignedOrders.Add(order);
                 Console.WriteLine($"Order {order.OrderId} assigned to {Name} ({Position}).");
+
+                // Вызов события
+                OrderAssigned?.Invoke(this, new OrderEventArgs(order, this));
             }
         }
 
